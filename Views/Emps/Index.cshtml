@@ -1,0 +1,114 @@
+﻿@model IEnumerable<LogginPage.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="input-group">
+    <div class="form-outline">
+        <input id="search-input" type="search" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Search</label>
+    </div>
+    <button id="search-button" type="button" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+    </button>
+</div>
+
+<script>
+    const searchFocus = document.getElementById('search-focus');
+    const keys = [
+        { keyCode: 'AltLeft', isTriggered: false },
+        { keyCode: 'ControlLeft', isTriggered: false },
+    ];
+
+    window.addEventListener('keydown', (e) => {
+        keys.forEach((obj) => {
+            if (obj.keyCode === e.code) {
+                obj.isTriggered = true;
+            }
+        });
+
+        const shortcutTriggered = keys.filter((obj) => obj.isTriggered).length === keys.length;
+
+        if (shortcutTriggered) {
+            searchFocus.focus();
+        }
+    });
+
+    window.addEventListener('keyup', (e) => {
+        keys.forEach((obj) => {
+            if (obj.keyCode === e.code) {
+                obj.isTriggered = false;
+            }
+        });
+    });
+</script>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOJ)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOJ)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
